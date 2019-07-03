@@ -3,8 +3,6 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validate :email_format
 
-  has_many :organization_admins, foreign_key: 'admin_id'
-  has_many :organizations, through: :organization_admins
 
   private
   def email_format
