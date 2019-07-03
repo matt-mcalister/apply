@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190703153042) do
+ActiveRecord::Schema.define(version: 20190703162249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "opportunities", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "organization_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_opportunities_on_organization_id"
+  end
 
   create_table "organization_admins", force: :cascade do |t|
     t.bigint "organization_id"
@@ -38,4 +47,5 @@ ActiveRecord::Schema.define(version: 20190703153042) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "opportunities", "organizations"
 end
