@@ -17,4 +17,7 @@ RSpec.describe User, type: :model do
     should allow_value("email@address.horse").for(:email)
     should_not allow_value("foo").for(:email)
   end
+  it "should have many organization_admins, foreign_key admin_id" do
+    should have_many(:organization_admins).with_foreign_key('admin_id')
+  end
 end
