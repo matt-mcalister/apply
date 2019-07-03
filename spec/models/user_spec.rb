@@ -17,4 +17,10 @@ RSpec.describe User, type: :model do
     should allow_value("email@address.horse").for(:email)
     should_not allow_value("foo").for(:email)
   end
+  it "should have many user_roles" do
+    should have_many(:user_roles)
+  end
+  it "should have many organizations through user_roles" do
+    should have_many(:organizations).through(:user_roles)
+  end
 end
