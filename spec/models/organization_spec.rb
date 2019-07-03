@@ -7,4 +7,7 @@ RSpec.describe Organization, type: :model do
   it "should have many organization_admins" do
     should have_many(:organization_admins)
   end
+  it "should have many admins through organization_admins" do
+    should have_many(:admins).through(:organization_admins)
+  end
 end
