@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190703195340) do
+ActiveRecord::Schema.define(version: 20190703200937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "input_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "inputs", force: :cascade do |t|
+    t.string "name"
+    t.bigint "input_type_id"
+    t.bigint "opportunity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["input_type_id"], name: "index_inputs_on_input_type_id"
+    t.index ["opportunity_id"], name: "index_inputs_on_opportunity_id"
+  end
 
   create_table "opportunities", force: :cascade do |t|
     t.string "name"
@@ -63,6 +79,8 @@ ActiveRecord::Schema.define(version: 20190703195340) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "inputs", "input_types"
+  add_foreign_key "inputs", "opportunities"
   add_foreign_key "opportunities", "organizations"
   add_foreign_key "permissions", "roles"
   add_foreign_key "user_roles", "organizations"
