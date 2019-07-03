@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190703200937) do
+ActiveRecord::Schema.define(version: 20190703201425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applications", force: :cascade do |t|
+    t.bigint "user_role_id"
+    t.bigint "opportunity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["opportunity_id"], name: "index_applications_on_opportunity_id"
+    t.index ["user_role_id"], name: "index_applications_on_user_role_id"
+  end
 
   create_table "input_types", force: :cascade do |t|
     t.string "name"
@@ -54,6 +63,16 @@ ActiveRecord::Schema.define(version: 20190703200937) do
     t.index ["role_id"], name: "index_permissions_on_role_id"
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.bigint "application_id"
+    t.bigint "input_id"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_responses_on_application_id"
+    t.index ["input_id"], name: "index_responses_on_input_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -79,10 +98,14 @@ ActiveRecord::Schema.define(version: 20190703200937) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "applications", "opportunities"
+  add_foreign_key "applications", "user_roles"
   add_foreign_key "inputs", "input_types"
   add_foreign_key "inputs", "opportunities"
   add_foreign_key "opportunities", "organizations"
   add_foreign_key "permissions", "roles"
+  add_foreign_key "responses", "applications"
+  add_foreign_key "responses", "inputs"
   add_foreign_key "user_roles", "organizations"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
