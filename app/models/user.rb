@@ -3,6 +3,8 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validate :email_format
 
+  has_many :organization_admins, foreign_key: 'admin_id'
+
   private
   def email_format
     if email && !email.match(/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/)
