@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
 
-  def signin
-  @user = User.find_by(email: params[:email])
-  if @user && @user.authenticate(params[:password])
-    token = encode_token({ user_id: @user.id })
-    render json: { user: @user, token: token }, status: :accepted
-  else
-    render json: { errors: ['Invalid email or password'] }, status: :unauthorized
+  def login
+    @user = User.find_by(email: params[:email])
+    if @user && @user.authenticate(params[:password])
+      token = encode_token({ user_id: @user.id })
+      render json: { user: @user, token: token }, status: :accepted
+    else
+      render json: { errors: ['Invalid email or password'] }, status: :unauthorized
+    end
   end
-end
 
 def new
   @user = User.new(user_params)
