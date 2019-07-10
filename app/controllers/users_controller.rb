@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :authorized, only: [:login, :new]
 
   def login
     @user = User.find_by(email: params[:email])
@@ -20,6 +21,11 @@ def new
     errors = @user.errors.full_messages
     render json: { errors_array: errors }, status: :unauthorized
   end
+end
+
+def find_by_token
+  @user = current_user
+  render json: {user: @user}
 end
 
 private
