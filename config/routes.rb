@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   post "/login", to: 'users#login'
   post "/signup", to: 'users#new'
+  get "/getuser", to: 'users#find_by_token'
 end
