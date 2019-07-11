@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :user_roles
   has_many :roles, through: :user_roles
   has_many :organizations, through: :user_roles
+  has_many :permissions, through: :user_roles
 
   private
   def email_format
