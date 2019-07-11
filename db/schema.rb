@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190708181210) do
+ActiveRecord::Schema.define(version: 20190711212134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20190708181210) do
     t.bigint "opportunity_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
     t.index ["opportunity_id"], name: "index_applications_on_opportunity_id"
     t.index ["user_role_id"], name: "index_applications_on_user_role_id"
   end
