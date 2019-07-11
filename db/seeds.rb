@@ -1,7 +1,30 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Permission.destroy_all
+UserRole.destroy_all
+Role.destroy_all
+Organization.destroy_all
+User.destroy_all
+
+
+admin = Role.create(name: "admin")
+reader = Role.create(name: "reader")
+applicant = Role.create(name: "applicant")
+
+admin.permissions << Permission.create(role: admin, name: "create_opportunity")
+admin.permissions << Permission.create(role: admin, name: "assign_reader")
+reader.permissions << Permission.create(role: reader, name: "review_application")
+applicant.permissions << Permission.create(role: applicant, name: "view_application_status")
+
+
+
+google = Organization.create(name: "Google")
+flatiron = Organization.create(name: "Flatiron School")
+
+matt = User.create(
+  first_name: "Matt",
+  last_name: "McAlister",
+  email: "matt.mcalister93@gmail.com",
+  password: "password"
+)
+
+UserRole.create(user: matt, organization: flatiron, role: admin)
+UserRole.create(user: matt, organization: google, role: applicant)
