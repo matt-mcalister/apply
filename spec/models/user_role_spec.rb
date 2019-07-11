@@ -10,4 +10,7 @@ RSpec.describe UserRole, type: :model do
   it "should belong to a role" do
     should belong_to(:role)
   end
+  it "should have many permissions through role" do
+    should have_many(:permissions).through(:role)
+  end
 end

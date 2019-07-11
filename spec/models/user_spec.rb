@@ -23,4 +23,7 @@ RSpec.describe User, type: :model do
   it "should have many organizations through user_roles" do
     should have_many(:organizations).through(:user_roles)
   end
+  it "should have many permissions through user_roles" do
+    should have_many(:permissions).through(:user_roles)
+  end
 end
